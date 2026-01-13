@@ -4,6 +4,12 @@ case $- in
       *) return;;
 esac
 
+# Color escape sequences for prompt
+COLOR_BOLD_GREEN='\033[01;32m'
+COLOR_BOLD_BLUE='\033[01;34m'
+COLOR_RESET='\033[00m'
+COLOR_BLUE='\033[0;34m'
+
 # don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth
 # unlimited history size in current shell
@@ -32,7 +38,7 @@ case "$TERM" in
 esac
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(_config_status_prompt) \$ '
+    PS1='${debian_chroot:+($debian_chroot)}\['$COLOR_BOLD_GREEN'\]\u@\h\['$COLOR_RESET'\]:\['$COLOR_BOLD_BLUE'\]\w\['$COLOR_RESET'\]$(_config_status_prompt) \$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -75,11 +81,15 @@ fi
 # Silently fetch updates for the dotfiles bare repo in the background
 (config fetch origin main &> /dev/null &)
 
+# Function to show git dotfiles remote status in prompt (this is for the dotfiles repo only)
 _config_status_prompt() {
     # Check if we are behind the remote
     local behind=$(config rev-list --count main..origin/main 2>/dev/null)
     if [ "$behind" -gt 0 ]; then
         # Return a warning symbol (e.g., a blue down arrow)
-        echo -e " \033[0;34m↓$behind\033[0m"
+        echo -e " $COLOR_BLUE↓$behind$COLOR_RESET"
     fi
 }
+
+# Load direnv if installed
+eval "$(direnv hook bash)"
