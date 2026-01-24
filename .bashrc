@@ -93,3 +93,8 @@ _config_status_prompt() {
 
 # Load direnv if installed
 eval "$(direnv hook bash)"
+
+. ~/bin/prompt
+
+. ~/.bash_dns
+. ~/.bash_bitwarden
