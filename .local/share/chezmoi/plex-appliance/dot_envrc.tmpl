@@ -1,0 +1,10 @@
+# .envrc
+# This file is managed by chezmoi. Edit it with "chezmoi edit"
+
+PATH_add scripts
+export ANSIBLE_INVENTORY=inventory.ini
+#echo "Plex Appliance environment loaded."
+
+export ha_token="{{ (rbw "ha-token-vault92").notes }}"
+
+

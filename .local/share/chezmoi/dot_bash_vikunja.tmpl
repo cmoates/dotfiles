@@ -1,0 +1,10 @@
+# Managed by chezmoi - do not edit directly
+export VIKUNJA_URL="https://todo.moat.es/api/v1"
+
+# Pulling the raw note content from Bitwarden
+export VIKUNJA_TOKEN="{{ (rbw "todo-cli-token").notes }}"
+
+export VIKUNJA_INBOX_ID="1" 
+
+# Alias for quick access
+alias tv='addtask'

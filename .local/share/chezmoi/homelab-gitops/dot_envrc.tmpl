@@ -1,0 +1,9 @@
+PATH_add scripts/
+{{- $token := (rbw "TrueNAS API").notes }}
+{{- $apiKey := "" }}
+{{- range (splitList "\n" $token) }}
+{{-   if hasPrefix "API Token:" . }}
+{{-     $apiKey = trim (trimPrefix "API Token:" .) }}
+{{-   end }}
+{{- end }}
+export truenas_api_token="{{ $apiKey }}"

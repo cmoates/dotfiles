@@ -1,0 +1,34 @@
+# Ansible Connection Settings
+ansible_python_interpreter: /usr/bin/python3
+
+# Network Identities
+fqdn_primary: "vault92.moat.es"
+fqdn_alias: "plex.moat.es"
+
+# NAS Configuration
+nas_host: "nas1.moat.es"
+#nas_share_base: "/mnt/bulk"
+
+mounts:
+  - name: "tv"
+    path: "/tv"
+    export: "/mnt/bulk/tv"
+  - name: "movies"
+    path: "/movies"
+    export: "/mnt/bulk/movies"
+  - name: "backups"
+    path: "/backups"
+    export: "/mnt/ssdpool1/backups"
+
+# Hardware IDs (RTL8156)
+realtek_vendor: "0bda"
+realtek_product: "8156"
+
+# User mapping
+puid: 1000
+pgid: 1000
+
+# Tautulli API Key
+# Get this from Tautulli: Settings -> Web Interface -> API -> API Key
+# Or generate a new one after first login
+tautulli_api_key: "{{ (rbw "tautulli-api-key").data.password }}"
