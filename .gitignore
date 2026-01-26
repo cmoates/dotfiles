@@ -1,0 +1,22 @@
+# Secrets and credentials
+.github-token
+
+# Local cache and state
+.cache/
+.local/share/
+.local/state/
+
+# SSH and GPG keys
+.ssh/
+.gnupg/
+
+# Application data that shouldn't be synced
+.mozilla/
+.config/google-chrome/
+.config/chromium/
+
+# Temporary files
+*.swp
+*.swo
+*~
+.DS_Store
