@@ -97,4 +97,23 @@ eval "$(direnv hook bash)"
 . ~/bin/prompt
 
 . ~/.bash_dns
-. ~/.bash_bitwarden
+#. ~/.bash_bitwarden
+#. ~/.bash_bitwarden_apikey
+
+rbw config set email cmoates@gmail.com
+
+# rbw-agent will start on-demand when needed
+# Token is cached to ~/.github-token for fast loading
+
+. ~/.bash_vikunja
+
+# GitHub configuration
+[ -f ~/.bash_github ] && . ~/.bash_github
+
+# Show reminder about GitHub token refresh if not set
+if [ -z "$GITHUB_TOKEN" ] && [ ! -f ~/.github-token ]; then
+  echo "💡 Tip: Run 'refresh-github-token' to cache your GitHub token from Bitwarden"
+fi
+
+# VS Code shell integration - let VS Code inject it automatically
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "${VSCODE_SHELL_INTEGRATION:-/dev/null}" 2>/dev/null

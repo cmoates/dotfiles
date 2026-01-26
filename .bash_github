@@ -1,0 +1,28 @@
+# GitHub Configuration
+# Token loaded from cached file (refreshed from Bitwarden when needed)
+
+# Load token from cache file if it exists
+if [ -f ~/.github-token ]; then
+  export GITHUB_TOKEN=$(cat ~/.github-token)
+fi
+
+# Function to refresh token from Bitwarden and cache it
+refresh-github-token() {
+  # Unlock rbw if needed
+  if ! rbw unlocked &>/dev/null; then
+    echo "Unlocking Bitwarden..."
+    rbw unlock || return 1
+  fi
+  
+  # Fetch token and save to cache
+  local token=$(rbw get github-flux-token 2>/dev/null)
+  if [ -n "$token" ]; then
+    echo "$token" > ~/.github-token
+    chmod 600 ~/.github-token
+    export GITHUB_TOKEN="$token"
+    echo "✓ Token refreshed from Bitwarden and cached (length: ${#GITHUB_TOKEN})"
+  else
+    echo "✗ Failed to retrieve token from Bitwarden"
+    return 1
+  fi
+}
